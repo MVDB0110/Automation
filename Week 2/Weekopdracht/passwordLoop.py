@@ -24,4 +24,6 @@ def SHAloop():
         char = chr(i)
         char = char.encode()
         if hash == hashlib.sha224(char).hexdigest():
-            print("Het wachtwoord is gevonden.")
+            print("Het wachtwoord is gevonden", char.decode(), "is de hoofdletter.")
+
+SHAloop()
