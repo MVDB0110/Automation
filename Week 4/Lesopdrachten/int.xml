@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding='utf-8'?>
+<config>
+  <initial>
+    <hostname>XXX</hostname>
+    <passwords>
+      <enablepassword tag='encrypted'>8Ry2YjIyt7RRXU24</enablepassword>
+      <passwd tag='encrypted'>2KFQnbNIdI.2KYOU</passwd>
+    </passwords>
+  </initial>
+  <interfaces>
+    <interface name='Ethernet0'>
+      <ip prefix='30'>10.10.88.50</ip>
+      <nameif>test</nameif>
+      <description>Herman’s network: "&lt;Games &amp; Other stuff>"</description>
+    </interface>
+    <interface name='请收藏'>
+      <ip prefix='23'>10.86.194.176</ip>
+      <nameif>inside</nameif>
+    </interface>
+  </interfaces>
+  <policymap name='xxx_global_fw_policy'/>
+  <class name='inspection_default'>
+    <inspects>
+      <inspect>dns</inspect>
+      <inspect>ftp</inspect>
+      <inspect>http</inspect>
+    </inspects>
+  </class>
+  <dataelement>
+    <![CDATA[
+    for (c in colors) {
+var item = $('<div
+/>').css("background
+-
+color",'#'+
+c
+olors[c]).addClass("colorbox");
+item.click((function () {
+var col = colors[c];
+return function () {
+currentColor = col;
+};
+})());
+    ]]>
+  </dataelement>
+</config>
+
+<!--
+interface Ethernet0
+nameif test
+ip address 10.10.88.50 255.255.255.254
+!
+interface Ethernet1
+nameif inside
+ip address 10.86.194.176 255.255.254.0
+!
+enable password 8Ry2YjIyt7RRXU24 encrypted
+passwd 2KFQnbNIdI.2KYOU encrypted
+hostname XXX
+!
+policy-map xxx_global_fw_policy
+class inspection_default
+inspect dns
+inspect ftp
+inspect http
+-->

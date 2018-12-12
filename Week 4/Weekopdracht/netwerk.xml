@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<netwerk>
+    <servers>
+        <serverI>
+            <ip prefix="24">10.0.0.1</ip>
+            <os>Windows Server 2016 Standard</os>
+            <harddisks>
+                <c>Windows</c>
+                <d>Program &amp; Files</d>
+                <e>Data</e>
+            </harddisks>
+        </serverI>
+        <serverII>
+            <ip prefix="24">10.0.0.2</ip>
+            <os>Windows Server 2016 Standard</os>
+            <harddisks>
+                <c>Windows</c>
+                <d>Program &amp; Files</d>
+                <e>Data</e>
+            </harddisks>
+        </serverII>
+    </servers>
+    <clients>
+        <clientI>
+            <ip prefix="24">10.0.1.1</ip>
+            <os>Windows 10 Home Basic</os>
+        </clientI>
+        <clientII>
+            <ip prefix="24">10.0.1.2</ip>
+            <os>Windows 10 Home Basic</os>
+        </clientII>
+        <clientIII>
+            <ip prefix="24">10.0.1.4</ip>
+            <os>Windows 10 Home Basic</os>
+        </clientIII>
+        <clientIV>
+            <ip prefix="24">10.0.1.5</ip>
+            <os>Windows 10 Home Basic</os>
+        </clientIV>
+        <clientV>
+            <ip prefix="24">10.0.1.6</ip>
+            <os>Windows 10 Home Basic</os>
+        </clientV>
+        <clientVI>
+            <ip prefix="24">10.0.1.7</ip>
+            <os>Windows 10 Home Basic</os>
+        </clientVI>
+        <clientVII>
+            <ip prefix="24">10.0.1.8</ip>
+            <os>Windows 7 Home Basic</os>
+        </clientVII>
+    </clients>
+</netwerk>
