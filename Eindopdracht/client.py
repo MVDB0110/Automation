@@ -1,4 +1,4 @@
-from clientclasses import *
+from clientclasses import ComputerUsage
 import time
 import socket
 import sys
@@ -7,7 +7,7 @@ import json
 # Source 1: www.pythonprogramminglanguage.com
 
 host = 'localhost'
-port = 8891
+port = 8888
 
 # create socket
 print('> Creating socket\n')
@@ -23,7 +23,8 @@ try:
     s.connect((host, port))
     print("> Connected to",str(host),str(port))
 except:
-    print("> Cannot connect to server")
+    print("> Cannot connect to server\n")
+    sys.exit()
 
 while True:
     try:
