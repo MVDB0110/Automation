@@ -11,7 +11,7 @@ def new_host(csocket,addr):
             data = json.loads(data.decode('ascii'))
         except:
             break;
-        file.write(str(data[0])+';'+str(data[1])+';'+str(data[2])+';'+str(data[3])+';'+str(data[4])+'\n')
+        file.write(str(data[0])+';'+str(data[1])+';'+str(data[2])+';'+str(data[3])+';'+str(data[4])+';'+str(data[5])+'\n')
         file.close()
 
     csocket.close()

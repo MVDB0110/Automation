@@ -12,5 +12,5 @@ class ComputerUsage():
         self.hostname = socket.gethostname()
         self.stamp = time.time()
     def values(self):
-        return [self.hostname,self.cpupercentage,self.memtotal,self.memusage,self.mempercentage]
+        return [self.stamp,self.hostname,self.cpupercentage,self.memtotal,self.memusage,self.mempercentage]
 
