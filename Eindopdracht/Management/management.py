@@ -3,11 +3,12 @@ from _thread import start_new_thread
 import json
 import sqlite3
 import configparser
+import os
 
 def new_host(csocket,addr):
     print('> Verbonden met ' + addr[0] + ':' + str(addr[1]))
     while True:
-        db = sqlite3.connect('usage.sqlite')
+        db = sqlite3.connect(db_file)
         dbconn = db.cursor()
         data = conn.recv(1024)
         try: # Probeer data te decoderen en daarna te loaden met JSON
@@ -21,11 +22,18 @@ def new_host(csocket,addr):
         db.close()
     csocket.close() # Sluit verbinding
 
+config_file = os.path.join(os.path.dirname(__file__), 'server.ini')
 config = configparser.ConfigParser()
-config.read('server.ini')
+config.read(config_file)
 
-HOST = '' # Alle beschikbare interfaces
-PORT = 8888 # Willekeurige poort
+if config['GENERAL']['IP'] == 'All':
+    HOST = '' # Alle beschikbare interfaces
+else:
+    HOST = config['GENERAL']['IP'] # IP/Hostname van config
+
+PORT = int(config['GENERAL']['Port']) # Poort van config
+
+db_file = config['DATABASE']['DatabaseFile']
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Maak socket
@@ -35,7 +43,7 @@ try:
 except:
     print("> Port is in gebruik.")
 
-db = sqlite3.connect('usage.sqlite') # Open database usage
+db = sqlite3.connect(db_file) # Open database usage
 dbconn = db.cursor()
 dbconn.execute('CREATE TABLE IF NOT EXISTS computerusage (stamp REAL,hostname VARCHAR(30),cpercent REAL,mtotal REAL,musage REAL,mpercent REAL);') # Creeer tabel als hij niet bestaat
 db.commit() # Maak aanpassingen
