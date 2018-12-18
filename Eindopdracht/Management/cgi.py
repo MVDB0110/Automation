@@ -1,12 +1,19 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sqlite3
+import configparser
+import os
 
 minions = []
 mempercent = []
 cpupercent = []
 
-db = sqlite3.connect('usage.sqlite') # Open SQlite database
+config_file = os.path.join(os.path.dirname(__file__), 'server.ini')
+config = configparser.ConfigParser()
+config.read(config_file)
+
+db_file = config['DATABASE']['DatabaseFile']
+db = sqlite3.connect(db_file) # Open SQlite database
 dbconn = db.cursor()
 dbconn.execute('SELECT * FROM computerusage') # Vraag alle velden uit de tabel computerusage
 fetch = dbconn.fetchall()

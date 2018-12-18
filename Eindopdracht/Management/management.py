@@ -27,17 +27,17 @@ config = configparser.ConfigParser()
 config.read(config_file)
 
 if config['GENERAL']['IP'] == 'All':
-    HOST = '' # Alle beschikbare interfaces
+    host = '' # Alle beschikbare interfaces
 else:
-    HOST = config['GENERAL']['IP'] # IP/Hostname van config
+    host = config['GENERAL']['IP'] # IP/Hostname van config
 
-PORT = int(config['GENERAL']['Port']) # Poort van config
+port = int(config['GENERAL']['Port']) # Poort van config
 
 db_file = config['DATABASE']['DatabaseFile']
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Maak socket
-    s.bind((HOST, PORT)) # Probeer te luisteren op poort
+    s.bind((host, port)) # Probeer te luisteren op poort
     s.listen(10)
     print('> Socket luistert op poort:',PORT)
 except:

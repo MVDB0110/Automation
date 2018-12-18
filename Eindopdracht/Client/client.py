@@ -3,11 +3,17 @@ import time
 import socket
 import sys
 import json
+import configparser
+import os
 
 # Source 1: www.pythonprogramminglanguage.com
 
-host = 'localhost'
-port = 8888
+config_file = os.path.join(os.path.dirname(__file__), 'client.ini')
+config = configparser.ConfigParser()
+config.read(config_file)
+
+host = config['GENERAL']['IP']
+port = config['GENERAL']['Port']
 
 print('> Creating socket')
 try:
