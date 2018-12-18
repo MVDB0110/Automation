@@ -2,6 +2,7 @@ import socket
 from _thread import start_new_thread
 import json
 import sqlite3
+import configparser
 
 def new_host(csocket,addr):
     print('> Verbonden met ' + addr[0] + ':' + str(addr[1]))
@@ -20,22 +21,25 @@ def new_host(csocket,addr):
         db.close()
     csocket.close() # Sluit verbinding
 
+config = configparser.ConfigParser()
+config.read('server.ini')
+
 HOST = '' # Alle beschikbare interfaces
 PORT = 8888 # Willekeurige poort
 
 try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((HOST, PORT))
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Maak socket
+    s.bind((HOST, PORT)) # Probeer te luisteren op poort
     s.listen(10)
     print('> Socket luistert op poort:',PORT)
 except:
     print("> Port is in gebruik.")
 
-db = sqlite3.connect('usage.sqlite')
+db = sqlite3.connect('usage.sqlite') # Open database usage
 dbconn = db.cursor()
-dbconn.execute('CREATE TABLE IF NOT EXISTS computerusage (stamp REAL,hostname VARCHAR(30),cpercent REAL,mtotal REAL,musage REAL,mpercent REAL);')
-db.commit()
-db.close()
+dbconn.execute('CREATE TABLE IF NOT EXISTS computerusage (stamp REAL,hostname VARCHAR(30),cpercent REAL,mtotal REAL,musage REAL,mpercent REAL);') # Creeer tabel als hij niet bestaat
+db.commit() # Maak aanpassingen
+db.close() # Sluit database
 
 while True:
     # Wacht op connecties
