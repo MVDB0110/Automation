@@ -31,17 +31,17 @@ if config['GENERAL']['IP'] == 'All':
 else:
     host = config['GENERAL']['IP'] # IP/Hostname van config
 
-port = int(config['GENERAL']['Port']) # Poort van config
+port = config['GENERAL']['Port'] # Poort van config
 
 db_file = config['DATABASE']['DatabaseFile']
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Maak socket
-    s.bind((host, port)) # Probeer te luisteren op poort
+    s.bind((host, int(port))) # Probeer te luisteren op poort
     s.listen(10)
-    print('> Socket luistert op poort:',PORT)
-except:
-    print("> Port is in gebruik.")
+    print('> Socket luistert op poort: ' + str(port))
+except socket.error as se:
+    print("> Port is in gebruik.", se)
 
 db = sqlite3.connect(db_file) # Open database usage
 dbconn = db.cursor()
