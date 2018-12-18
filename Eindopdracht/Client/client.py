@@ -18,16 +18,16 @@ port = config['GENERAL']['Port']
 print('> Creating socket')
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Probeer socket te maken
-except socket.error:
-    print('> Failed to create socket')
+except socket.error as se:
+    print('> Failed to create socket', se)
     sys.exit() # Stop script bij exception
 
 print('> Connecting to server, ' + host)
 try:
-    s.connect((host, port)) # Probeer met server verbinding te maken.
+    s.connect((host, int(port))) # Probeer met server verbinding te maken.
     print("> Connected to",str(host),str(port))
-except:
-    print("> Cannot connect to server")
+except socket.error as se:
+    print("> Cannot connect to server\n", se)
     sys.exit()
 
 while True:
