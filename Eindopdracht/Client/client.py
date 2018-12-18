@@ -9,18 +9,16 @@ import json
 host = 'localhost'
 port = 8888
 
-# create socket
 print('> Creating socket')
 try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Probeer socket te maken
 except socket.error:
     print('> Failed to create socket')
-    sys.exit()
+    sys.exit() # Stop script bij exception
 
-# Connect to remote server
 print('> Connecting to server, ' + host)
 try:
-    s.connect((host, port))
+    s.connect((host, port)) # Probeer met server verbinding te maken.
     print("> Connected to",str(host),str(port))
 except:
     print("> Cannot connect to server")
@@ -28,9 +26,9 @@ except:
 
 while True:
     try:
-        x = ComputerUsage()
-        s.send(json.dumps(x.values()).encode('ascii'))
-        time.sleep(10)
+        x = ComputerUsage() # Roep class aan
+        s.send(json.dumps(x.values()).encode('ascii')) # Maak een Json dump en codeer deze in ascii
+        time.sleep(10) # Wacht tien seconden
     except socket.error:
         print('> Send failed')
         sys.exit()

@@ -9,19 +9,19 @@ def new_host(csocket,addr):
         db = sqlite3.connect('usage.sqlite')
         dbconn = db.cursor()
         data = conn.recv(1024)
-        try:
+        try: # Probeer data te decoderen en daarna te loaden met JSON
             data = json.loads(data.decode('ascii'))
-        except:
+        except: # Als de data niet te importeren is met JSON verbreek verbinding
             break;
 
-        dbconn.execute('DELETE FROM computerusage WHERE hostname=?',(str(data[1]),))
-        dbconn.execute('INSERT INTO computerusage VALUES(?,?,?,?,?,?)', (data[0],str(data[1]),data[2],data[3],data[4],data[5]))
-        db.commit()
+        dbconn.execute('DELETE FROM computerusage WHERE hostname=?',(str(data[1]),)) # Haal eerdere data van deze host uit de database
+        dbconn.execute('INSERT INTO computerusage VALUES(?,?,?,?,?,?)', (data[0],str(data[1]),data[2],data[3],data[4],data[5])) # Voeg daarna de nieuwe regel toe
+        db.commit() # Maak de aanpassingen
         db.close()
-    csocket.close()
+    csocket.close() # Sluit verbinding
 
 HOST = '' # Alle beschikbare interfaces
-PORT = 8888 # Willekeurige poort (denk aan firewall bij Windows Systemen)
+PORT = 8888 # Willekeurige poort
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -38,7 +38,7 @@ db.commit()
 db.close()
 
 while True:
-    # Wacht op connecties (blocking)
+    # Wacht op connecties
     conn, addr = s.accept()
-    start_new_thread(new_host,(conn,addr))
+    start_new_thread(new_host,(conn,addr)) # Voor elke client een nieuwe thread aanmaken
 
