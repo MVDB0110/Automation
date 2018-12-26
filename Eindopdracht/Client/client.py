@@ -1,10 +1,13 @@
-from clientclasses import ComputerUsage
 import time
 import socket
 import sys
 import json
 import configparser
 import os
+if os.name == 'posix':
+    from clientclasses import ComputerUsage
+if os.name == 'nt':
+    import subprocess
 
 # Source 1: www.pythonprogramminglanguage.com
 
@@ -14,6 +17,7 @@ config.read(config_file)
 
 host = config['GENERAL']['IP']
 port = config['GENERAL']['Port']
+scriptloc = config['WINDOWS']['ScriptLocation']
 
 print('> Creating socket')
 try:
@@ -31,10 +35,16 @@ except socket.error as se:
     sys.exit()
 
 while True:
-    try:
-        x = ComputerUsage() # Roep class aan
-        s.send(json.dumps(x.values()).encode('ascii')) # Maak een Json dump en codeer deze in ascii
-        time.sleep(10) # Wacht tien seconden
-    except socket.error:
-        print('> Send failed')
-        sys.exit()
+    if os.name == 'posix':
+        try:
+            x = ComputerUsage() # Roep class aan
+            s.send(json.dumps(x.values()).encode('ascii')) # Maak een Json dump en codeer deze in ascii
+            time.sleep(10) # Wacht tien seconden
+        except socket.error:
+            print('> Send failed')
+            sys.exit()
+    if os.name == 'nt':
+        pwsh = subprocess.Popen(['powershell.exe','-ExecutionPolicy','Unrestricted',scriptloc],stdout=subprocess.PIPE)
+        output = pwsh.stdout.read()
+        s.send(json.dumps(output).encode('ascii'))  # Maak een Json dump en codeer deze in ascii
+        time.sleep(10)  # Wacht tien seconden
