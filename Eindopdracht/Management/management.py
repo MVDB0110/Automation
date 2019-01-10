@@ -36,7 +36,7 @@ port = config['GENERAL']['Port'] # Poort van config
 db_file = config['DATABASE']['DatabaseFile']
 
 try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Maak socket
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Maak TCP socket
     s.bind((host, int(port))) # Probeer te luisteren op poort
     s.listen(10)
     print('> Socket luistert op poort: ' + str(port))
@@ -50,7 +50,6 @@ db.commit() # Maak aanpassingen
 db.close() # Sluit database
 
 while True:
-    # Wacht op connecties
-    conn, addr = s.accept()
+    conn, addr = s.accept() # Wacht op connecties
     start_new_thread(new_host,(conn,addr)) # Voor elke client een nieuwe thread aanmaken
 

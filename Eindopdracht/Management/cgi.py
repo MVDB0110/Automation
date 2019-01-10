@@ -1,8 +1,18 @@
+#!/usr/bin/python3
+
+import cgi
+import cgitb
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import sqlite3
 import configparser
 import os
+
+print("Content-type: text/html\n")
+
+cgitb.enable()
 
 minions = []
 mempercent = []
@@ -13,7 +23,7 @@ config = configparser.ConfigParser()
 config.read(config_file)
 
 db_file = config['DATABASE']['DatabaseFile']
-db = sqlite3.connect(db_file) # Open SQlite database
+db = sqlite3.connect(os.path.join(os.path.dirname(__file__), db_file)) # Open SQlite database
 dbconn = db.cursor()
 dbconn.execute('SELECT * FROM computerusage') # Vraag alle velden uit de tabel computerusage
 fetch = dbconn.fetchall()
@@ -35,7 +45,7 @@ ax.invert_yaxis()
 ax.set_xlabel('Percentage')
 ax.set_title('Memory Usage')
 
-plt.savefig('memory.png') # Sla geheugengebruik grafiek op
+plt.savefig(os.path.join(os.path.dirname(__file__),'memory.png')) # Sla geheugengebruik grafiek op
 
 plt.rcdefaults()
 fig2, ax2 = plt.subplots() # Maak figuur 2
@@ -50,4 +60,17 @@ ax2.invert_yaxis()
 ax2.set_xlabel('Percentage')
 ax2.set_title('CPU Usage')
 
-plt.savefig('cpu.png') # Sla processorgebruik op.
+plt.savefig(os.path.join(os.path.dirname(__file__),'cpu.png')) # Sla processorgebruik op.
+
+print("<html>\n")
+print("<header>\n")
+print("<title>Management Website Tim en Mike</title>\n")
+print("</header>\n")
+print("<body>\n")
+print("<div width='100%' align='center'><h1>Management Website</h1></div>\n")
+print("<div align='center'>\n")
+print("<img src='memory.png'>\n")
+print("<img src='cpu.png'>\n")
+print("</div>\n")
+print("</body>\n")
+print("</html>")
