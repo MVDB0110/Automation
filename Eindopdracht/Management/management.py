@@ -4,11 +4,11 @@ import json
 import sqlite3
 import configparser
 import os
-import syslog
+import logging
 
 def new_host(csocket,addr):
     print('> Verbonden met ' + str(addr[0]) + ':' + str(addr[1]))
-    syslog.syslog(syslog.LOG_INFO, 'Verbonden met: '+str(addr[0])+':'+str(addr[1]))
+    logger.info('Verbonden met: '+str(addr[0])+':'+str(addr[1]))
     while True:
         db = sqlite3.connect(db_file)
         dbconn = db.cursor()
@@ -23,7 +23,7 @@ def new_host(csocket,addr):
         db.commit() # Maak de aanpassingen
         db.close()
     csocket.close() # Sluit verbinding
-    syslog.syslog(syslog.LOG_INFO,'Verbinding verbroken met: '+str(addr[0])+':'+str(addr[1]))
+    logger.info('Client: '+str(addr[0])+":"+str(addr[1])+' heeft de verbinding verbroken.')
 
 config_file = os.path.join(os.path.dirname(__file__), 'server.ini')
 config = configparser.ConfigParser()
@@ -38,18 +38,23 @@ port = config['GENERAL']['Port'] # Poort van config
 
 db_file = config['DATABASE']['DatabaseFile']
 
-syslog.openlog(logoption=syslog.LOG_PID, facility=syslog.LOG_DAEMON)
-syslog.syslog(syslog.INFO,'Daemon geinitialiseerd.')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logfile = logging.FileHandler(__name__+'.log')
+format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+handler.setFormatter(format)
+logger.addHandler(logfile)
+logger.info('Daemon geinitialiseerd')
 
 try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # Maak TCP socket
     s.bind((host, int(port))) # Probeer te luisteren op poort
     s.listen(10)
     print('> Socket luistert op poort: ' + str(port))
-    syslog.syslog(syslog.LOG_INFO,'Daemon luistert op: '+str(port))
+    logger.info('Daemon luistert op: '+str(port))
 except socket.error as se:
     print("> Port is in gebruik.", se)
-    syslog.syslog(syslog.LOG_ERR, "Port is in gebruik."+se)
+    logger.error("Port is in gebruik."+se)
 
 db = sqlite3.connect(db_file) # Open database usage
 dbconn = db.cursor()
