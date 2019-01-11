@@ -41,7 +41,7 @@ db_file = config['DATABASE']['DatabaseFile']
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-logfile = logging.FileHandler('management.log')
+logfile = logging.FileHandler(os.path.join(os.path.dirname(__file__), 'management.log'))
 format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logfile.setFormatter(format)
 logger.addHandler(logfile)
