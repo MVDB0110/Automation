@@ -71,7 +71,7 @@ print("<td>Minion</td><td>CPU usage</td><td>Memory Usage</td><td>Disk Total</td>
 print("</tr>\n")
 for minion in htmlList:
     print("<tr>\n")
-    print("<td>"+ minion[1] +"</td><td>"+minion[2]+"</td><td>"+minion[3]+"</td><td>"+minion[4]+"</td><td>"+minion[5]+"</td><td>"+minion[0]+"</td>\n")
+    print("<td>"+str(minion[1])+"</td><td>"+str(minion[2])+"</td><td>"+str(minion[3])+"</td><td>"+str(minion[4])+"</td><td>"+str(minion[5])+"</td><td>"+str(minion[0])+"</td>\n")
     print("</tr>\n")
 print("</table>\n")
 print("</body>\n")
