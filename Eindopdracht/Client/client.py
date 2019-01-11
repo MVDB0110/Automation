@@ -4,18 +4,19 @@ import sys
 import json
 import configparser
 import os
-if os.name == 'posix':
+if os.name == 'posix': # Unix/Linux
     from clientclasses import ComputerUsage
-if os.name == 'nt':
+if os.name == 'nt': # Windows
     import subprocess
     import psutil
 
 # Source 1: www.pythonprogramminglanguage.com
 
-config_file = os.path.join(os.path.dirname(__file__), 'client.ini')
-config = configparser.ConfigParser()
-config.read(config_file)
+config_file = os.path.join(os.path.dirname(__file__), 'client.ini') # Configfile
+config = configparser.ConfigParser() # Configparser aanmaken
+config.read(config_file) # Lees config
 
+# Zet waarden uit logfile in variabele
 host = config['GENERAL']['IP']
 port = config['GENERAL']['Port']
 scriptloc = config['WINDOWS']['ScriptLocation']

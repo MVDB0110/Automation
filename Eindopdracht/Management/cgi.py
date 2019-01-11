@@ -12,12 +12,12 @@ print("Content-type: text/html\n")
 
 cgitb.enable()
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-logfile = logging.FileHandler(os.path.join(os.path.dirname(__file__), 'cgi.log'))
-format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logfile.setFormatter(format)
-logger.addHandler(logfile)
+logger = logging.getLogger(__name__) # Initieer logsysteem
+logger.setLevel(logging.INFO) # Log alles boven en gelijk aan INFO
+logfile = logging.FileHandler(os.path.join(os.path.dirname(__file__), 'cgi.log')) # Zet het in Log file cgi.log
+format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s') # Formatteer het op deze wijze
+logfile.setFormatter(format) # Geef het format dat net gemaakt is aan
+logger.addHandler(logfile) # Handler aanmaken voor logfile
 
 minions = []
 mempercent = []
@@ -44,15 +44,15 @@ for line in fetch:
     mempercent.append(line[3]) # Voeg percentage geheugengebruik toe aan mempercent
     cpupercent.append(line[2]) # Voeg percentage processorgebruik toe aan cpupercent
     diskpercent.append(line[6]) # Voeg percentage hardeschijf toe aan diskpercent
-    htmlList.append((line[0],line[1],line[2],line[3],round(line[4]/1024**3,2),round(line[5]/1024**3,2)))
+    htmlList.append((line[0],line[1],line[2],line[3],round(line[4]/1024**3,2),round(line[5]/1024**3,2))) # Maak de lijst met alle minion informatie in de tabel later
 
-cpu = HorizontalBar('CPU Usage','Percentage',minions,cpupercent,'red')
-memory = HorizontalBar('Memory Usage','Percentage',minions,mempercent,'red')
-disk = HorizontalBar('Disk Usage','Percentage',minions,diskpercent,'red')
+cpu = HorizontalBar('CPU Usage','Percentage',minions,cpupercent,'red') # Maak horizontal bar
+memory = HorizontalBar('Memory Usage','Percentage',minions,mempercent,'red') # Maak horizontal bar
+disk = HorizontalBar('Disk Usage','Percentage',minions,diskpercent,'red') # Maak horizontal bar
 
-cpu.plotPNG('cpu.png')
-memory.plotPNG('memory.png')
-disk.plotPNG('disk.png')
+cpu.plotPNG('cpu.png') # Sla processor plaatje op
+memory.plotPNG('memory.png') # Sla processor plaatje op
+disk.plotPNG('disk.png') # Sla processor plaatje op
 
 print("<html>\n")
 print("<header>\n")
@@ -70,13 +70,13 @@ print("<tr>\n")
 print("<td align ='center'>Minion</td><td align ='center'>CPU usage</td><td align ='center'>Memory Usage</td><td align ='center'>Diskspace Total</td><td align ='center'>Diskspace In Use</td><td align ='center'>Time Stamp</td>\n")
 print("</tr>\n")
 for minion in htmlList:
-    if minion[2] > 89:
+    if minion[2] > 89: # Is CPU percentage over de 89? Dan wordt de kleur rood
         ccolor='#FF0000' # Rood
-    else:
+    else: # Anders groen
         ccolor='#00FF00' # Groen
-    if minion[3] > 89:
+    if minion[3] > 89: # Is Memory percentage over de 89? Dan wordt de kleur rood
         mcolor='#FF0000' # Rood
-    else:
+    else: # Anders groen
         mcolor='#00FF00' # Groen
     print("<tr>\n")
     print("<td align ='center'>"+str(minion[1])+"</td><td bgcolor='"+ccolor+"' align ='center'>"+str(minion[2])+"</td><td bgcolor='"+mcolor+"' align ='center'>"+str(minion[3])+"</td><td align ='center'>"+str(minion[4])+"GB</td><td align ='center'>"+str(minion[5])+"GB</td><td align ='center'>"+str(minion[0])+"</td>\n")

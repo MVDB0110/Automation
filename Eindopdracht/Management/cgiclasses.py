@@ -7,14 +7,14 @@ import os
 class HorizontalBar:
 
     def __init__(self,title,xlabel,hosts,percentage,color):
-        self.title = title
-        self.hosts = hosts
-        self.xlabel = xlabel
-        self.percentage = percentage
-        self.color = color
+        self.title = title # Titel voor horizontalbar
+        self.hosts = hosts # Alle minions
+        self.xlabel = xlabel # Het label voor de x-as
+        self.percentage = percentage # Percentage van de minions over het aangegeven object
+        self.color = color # Kleur van de staven
 
     def plotPNG(self,outputFile):
-        plt.rcdefaults()
+        plt.rcdefaults() # Initieer plot
         fig, ax = plt.subplots()  # Maak figuur
         ybar = np.arange(len(self.hosts))  # Vraag getal van objecten over y-as
 
@@ -23,7 +23,7 @@ class HorizontalBar:
         ax.set_yticklabels(self.hosts)  # Zet hostnames op y-as
         ax.set(xlim=[0, 100])  # Zet x-as van 0 tm 100
         ax.invert_yaxis()
-        ax.set_xlabel(self.xlabel)
-        ax.set_title(self.title)
+        ax.set_xlabel(self.xlabel) # Zet x-label op x-as
+        ax.set_title(self.title) # Zet titel op plot
 
-        plt.savefig(os.path.join(os.path.dirname(__file__), outputFile))  # Sla geheugengebruik grafiek op
+        plt.savefig(os.path.join(os.path.dirname(__file__), outputFile))  # Sla grafiek op

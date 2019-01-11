@@ -10,9 +10,9 @@ def new_host(csocket,addr):
     print('> Verbonden met ' + str(addr[0]) + ':' + str(addr[1]))
     logger.info('Verbonden met: '+str(addr[0])+':'+str(addr[1]))
     while True:
-        db = sqlite3.connect(db_file)
+        db = sqlite3.connect(db_file) # Verbindt met database
         dbconn = db.cursor()
-        data = conn.recv(1024)
+        data = conn.recv(1024) # Ontvang data
         try: # Probeer data te decoderen en daarna te loaden met JSON
             data = json.loads(data.decode('ascii'))
         except: # Als de data niet te importeren is met JSON verbreek verbinding
@@ -38,12 +38,12 @@ port = config['GENERAL']['Port'] # Poort van config
 
 db_file = config['DATABASE']['DatabaseFile']
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-logfile = logging.FileHandler(os.path.join(os.path.dirname(__file__), 'management.log'))
-format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logfile.setFormatter(format)
-logger.addHandler(logfile)
+logger = logging.getLogger(__name__) # Initieer logsysteem
+logger.setLevel(logging.INFO) # Zet log level op INFO
+logfile = logging.FileHandler(os.path.join(os.path.dirname(__file__), 'management.log')) # Geef de logfile aan
+format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s') # Geef het format aan
+logfile.setFormatter(format) # Geef het format aan de formatter
+logger.addHandler(logfile) # Handler aanmaken voor logfile
 logger.info('Daemon geinitialiseerd')
 
 try:
