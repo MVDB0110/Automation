@@ -58,7 +58,7 @@ except socket.error as se:
 
 db = sqlite3.connect(db_file) # Open database usage
 dbconn = db.cursor()
-dbconn.execute('CREATE TABLE IF NOT EXISTS computerusage (stamp REAL,hostname VARCHAR(30),cpercent REAL,mpercent REAL);') # Creeer tabel als hij niet bestaat
+dbconn.execute('CREATE TABLE IF NOT EXISTS computerusage (stamp REAL,hostname VARCHAR(30),cpercent REAL,mpercent REAL,disktotal REAL,diskusage REAL,diskpercent);') # Creeer tabel als hij niet bestaat
 db.commit() # Maak aanpassingen
 db.close() # Sluit database
 
