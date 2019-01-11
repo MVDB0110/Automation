@@ -67,7 +67,7 @@ print("<img src='disk.png'>\n")
 print("</div>\n")
 print("<table align='center' border='1'>\n")
 print("<tr>\n")
-print("<td align ='center'>Minion</td><td align ='center'>CPU usage</td><td align ='center'>Memory Usage</td><td align ='center'>Disk Total</td><td align ='center'>Disk Usage</td><td align ='center'>Time Stamp</td>\n")
+print("<td align ='center'>Minion</td><td align ='center'>CPU usage</td><td align ='center'>Memory Usage</td><td align ='center'>Diskspace Total</td><td align ='center'>Diskspace In Use</td><td align ='center'>Time Stamp</td>\n")
 print("</tr>\n")
 for minion in htmlList:
     if minion[2] > 89:
@@ -79,7 +79,7 @@ for minion in htmlList:
     else:
         mcolor='#00FF00' # Groen
     print("<tr>\n")
-    print("<td align ='center'>"+str(minion[1])+"</td><td bgcolor='"+ccolor+"' align ='center'>"+str(minion[2])+"</td><td bgcolor='"+mcolor+"' align ='center'>"+str(minion[3])+"</td><td align ='center'>"+str(minion[4])+"</td><td align ='center'>"+str(minion[5])+"</td><td align ='center'>"+str(minion[0])+"</td>\n")
+    print("<td align ='center'>"+str(minion[1])+"</td><td bgcolor='"+ccolor+"' align ='center'>"+str(minion[2])+"</td><td bgcolor='"+mcolor+"' align ='center'>"+str(minion[3])+"</td><td align ='center'>"+str(minion[4])+"GB</td><td align ='center'>"+str(minion[5])+"GB</td><td align ='center'>"+str(minion[0])+"</td>\n")
     print("</tr>\n")
 print("</table>\n")
 print("</body>\n")
