@@ -5,6 +5,7 @@ import sqlite3
 import configparser
 import os
 import logging
+import logging.handlers
 
 def new_host(csocket,addr):
     print('> Verbonden met ' + str(addr[0]) + ':' + str(addr[1]))
@@ -42,7 +43,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 logfile = logging.FileHandler(__name__+'.log')
 format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(format)
+logfile.setFormatter(format)
 logger.addHandler(logfile)
 logger.info('Daemon geinitialiseerd')
 
