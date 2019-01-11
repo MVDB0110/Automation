@@ -46,8 +46,6 @@ for line in fetch:
     diskpercent.append(line[6]) # Voeg percentage hardeschijf toe aan diskpercent
     htmlList.append((line[0],line[1],line[2],round(line[3]/1024**3,2),round(line[4]/1024**3,2),line[5]))
 
-round(disktotal/1024**3,2)
-
 cpu = HorizontalBar('CPU Usage','Percentage',minions,cpupercent,'red')
 memory = HorizontalBar('Memory Usage','Percentage',minions,mempercent,'red')
 disk = HorizontalBar('Disk Usage','Percentage',minions,diskpercent,'red')
