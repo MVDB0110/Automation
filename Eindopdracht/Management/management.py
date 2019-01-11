@@ -5,7 +5,6 @@ import sqlite3
 import configparser
 import os
 import logging
-import logging.handlers
 
 def new_host(csocket,addr):
     print('> Verbonden met ' + str(addr[0]) + ':' + str(addr[1]))
@@ -20,7 +19,7 @@ def new_host(csocket,addr):
             break;
 
         dbconn.execute('DELETE FROM computerusage WHERE hostname=?',(str(data[1]),)) # Haal eerdere data van deze host uit de database
-        dbconn.execute('INSERT INTO computerusage VALUES(?,?,?,?)', (data[0],str(data[1]),data[2],data[3])) # Voeg daarna de nieuwe regel toe
+        dbconn.execute('INSERT INTO computerusage VALUES(?,?,?,?,?,?,?)', (data[0],str(data[1]),data[2],data[3],data[4],data[5],data[6])) # Voeg daarna de nieuwe regel toe
         db.commit() # Maak de aanpassingen
         db.close()
     csocket.close() # Sluit verbinding

@@ -8,6 +8,7 @@ if os.name == 'posix':
     from clientclasses import ComputerUsage
 if os.name == 'nt':
     import subprocess
+    import psutil
 
 # Source 1: www.pythonprogramminglanguage.com
 
@@ -51,7 +52,7 @@ while True:
             print("> Powershell script niet gevonden.")
         output = output.decode() # output komt gecodeerd binnen.
         output = output.splitlines() # output bestaat uit 5 regels waarvan 2 bruikbaar
-        usage = [time.time(),socket.gethostname(),output[1],output[4]] # list maken van verschillende informatie
+        usage = [time.time(),socket.gethostname(),output[1],output[4],psutil.disk_usage(".").total,psutil.disk_usage(".").used,psutil.disk_usage(".").percent] # list maken van verschillende informatie
         try:
             s.send(json.dumps(output).encode('ascii'))  # Maak een Json dump en codeer deze in ascii
         except: # Als json niet gedumpt kan worden is er een send failed. Dan verbreekt de server de verbinding.
