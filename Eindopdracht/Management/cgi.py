@@ -30,7 +30,7 @@ dbconn.execute('SELECT * FROM computerusage') # Vraag alle velden uit de tabel c
 fetch = dbconn.fetchall()
 for line in fetch:
     minions.append(line[1]) # Voeg hostname toe aan minions
-    mempercent.append(line[5]) # Voeg percentage geheugengebruik toe aan mempercent
+    mempercent.append(line[3]) # Voeg percentage geheugengebruik toe aan mempercent
     cpupercent.append(line[2]) # Voeg percentage processorgebruik toe aan cpupercent
 
 cpu = HorizontalBar('CPU Usage','Percentage',minions,cpupercent,'red')

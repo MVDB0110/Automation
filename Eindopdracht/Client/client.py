@@ -46,5 +46,7 @@ while True:
     if os.name == 'nt':
         pwsh = subprocess.Popen(['powershell.exe','-ExecutionPolicy','Unrestricted',scriptloc],stdout=subprocess.PIPE)
         output = pwsh.stdout.read()
+        output = output.splitlines()
+        usage = [time.time(),socket.gethostname(),output[0],output[4]]
         s.send(json.dumps(output).encode('ascii'))  # Maak een Json dump en codeer deze in ascii
         time.sleep(10)  # Wacht tien seconden

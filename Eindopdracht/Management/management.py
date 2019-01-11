@@ -20,7 +20,7 @@ def new_host(csocket,addr):
             break;
 
         dbconn.execute('DELETE FROM computerusage WHERE hostname=?',(str(data[1]),)) # Haal eerdere data van deze host uit de database
-        dbconn.execute('INSERT INTO computerusage VALUES(?,?,?,?,?,?)', (data[0],str(data[1]),data[2],data[3],data[4],data[5])) # Voeg daarna de nieuwe regel toe
+        dbconn.execute('INSERT INTO computerusage VALUES(?,?,?,?)', (data[0],str(data[1]),data[2],data[3])) # Voeg daarna de nieuwe regel toe
         db.commit() # Maak de aanpassingen
         db.close()
     csocket.close() # Sluit verbinding
@@ -59,7 +59,7 @@ except socket.error as se:
 
 db = sqlite3.connect(db_file) # Open database usage
 dbconn = db.cursor()
-dbconn.execute('CREATE TABLE IF NOT EXISTS computerusage (stamp REAL,hostname VARCHAR(30),cpercent REAL,mtotal REAL,musage REAL,mpercent REAL);') # Creeer tabel als hij niet bestaat
+dbconn.execute('CREATE TABLE IF NOT EXISTS computerusage (stamp REAL,hostname VARCHAR(30),cpercent REAL,mpercent REAL);') # Creeer tabel als hij niet bestaat
 db.commit() # Maak aanpassingen
 db.close() # Sluit database
 
