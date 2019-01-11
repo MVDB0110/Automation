@@ -1,5 +1,5 @@
 ﻿$Cpu = Get-Counter -Counter "\Processor(_Total)\% Processor Time" -SampleInterval 4
-$CpuPercentage=($proc.readings -split ":")[-1]
+$CpuPercentage=($Cpu.readings -split ":")[-1]
 
 $system = Get-WmiObject win32_OperatingSystem
 $TotaalAantalMemory = $system.TotalVisibleMemorySize

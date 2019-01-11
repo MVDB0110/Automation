@@ -9,11 +9,19 @@ import numpy as np
 import sqlite3
 import configparser
 import os
+import logging
 from cgiclasses import HorizontalBar
 
 print("Content-type: text/html\n")
 
 cgitb.enable()
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+logfile = logging.FileHandler(os.path.join(os.path.dirname(__file__), 'cgi.log'))
+format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logfile.setFormatter(format)
+logger.addHandler(logfile)
 
 minions = []
 mempercent = []
@@ -24,8 +32,13 @@ config = configparser.ConfigParser()
 config.read(config_file)
 
 db_file = config['DATABASE']['DatabaseFile']
-db = sqlite3.connect(db_file) # Open SQlite database
-dbconn = db.cursor()
+
+try:
+    db = sqlite3.connect(db_file) # Open SQlite database
+    dbconn = db.cursor()
+except:
+    logger.error('Database bestand bestaat niet of kan niet worden gelezen.')
+
 dbconn.execute('SELECT * FROM computerusage') # Vraag alle velden uit de tabel computerusage
 fetch = dbconn.fetchall()
 for line in fetch:
