@@ -44,9 +44,16 @@ while True:
             print('> Send failed')
             sys.exit()
     if os.name == 'nt':
-        pwsh = subprocess.Popen(['powershell.exe','-ExecutionPolicy','Unrestricted',scriptloc],stdout=subprocess.PIPE)
-        output = pwsh.stdout.read()
-        output = output.splitlines()
-        usage = [time.time(),socket.gethostname(),output[0],output[4]]
-        s.send(json.dumps(output).encode('ascii'))  # Maak een Json dump en codeer deze in ascii
+        try:
+            pwsh = subprocess.Popen(['powershell.exe','-ExecutionPolicy','Unrestricted',scriptloc],stdout=subprocess.PIPE)
+            output = pwsh.stdout.read()
+        except:
+            print("> Powershell script niet gevonden.")
+        output = output.decode() # output komt gecodeerd binnen.
+        output = output.splitlines() # output bestaat uit 5 regels waarvan 2 bruikbaar
+        usage = [time.time(),socket.gethostname(),output[1],output[4]] # list maken van verschillende informatie
+        try:
+            s.send(json.dumps(output).encode('ascii'))  # Maak een Json dump en codeer deze in ascii
+        except: # Als json niet gedumpt kan worden is er een send failed. Dan verbreekt de server de verbinding.
+            print("> Send failed")
         time.sleep(10)  # Wacht tien seconden
