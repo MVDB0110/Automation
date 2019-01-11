@@ -9,6 +9,7 @@ import numpy as np
 import sqlite3
 import configparser
 import os
+from cgiclasses import HorizontalBar
 
 print("Content-type: text/html\n")
 
@@ -32,35 +33,11 @@ for line in fetch:
     mempercent.append(line[5]) # Voeg percentage geheugengebruik toe aan mempercent
     cpupercent.append(line[2]) # Voeg percentage processorgebruik toe aan cpupercent
 
-plt.rcdefaults()
-fig, ax = plt.subplots() # Maak figuur 1
+cpu = HorizontalBar('CPU Usage','Percentage',minions,cpupercent,'red')
+memory = HorizontalBar('Memory Usage','Percentage',minions,mempercent,'red')
 
-ybar = np.arange(len(minions)) # Vraag getal van objecten over y-as
-
-ax.barh(minions, mempercent, align='center',color='red', ecolor='black') # Zet waarden figuur 1
-ax.set_yticks(ybar) # Maak evenveel posities op y-as als objecten in minions
-ax.set_yticklabels(minions) # Zet hostnames op y-as
-ax.set(xlim=[0,100]) # Zet x-as van 0 tm 100
-ax.invert_yaxis()
-ax.set_xlabel('Percentage')
-ax.set_title('Memory Usage')
-
-plt.savefig(os.path.join(os.path.dirname(__file__),'memory.png')) # Sla geheugengebruik grafiek op
-
-plt.rcdefaults()
-fig2, ax2 = plt.subplots() # Maak figuur 2
-
-ybar = np.arange(len(minions)) # Vraag getal van objecten over y-as
-
-ax2.barh(minions, cpupercent, align='center',color='red', ecolor='black') # Zet gegevens in grafiek
-ax2.set_yticks(ybar) # Maak evenveel posities op y-as als objecten in minions
-ax2.set_yticklabels(minions) # Zet hostnames op y-as
-ax2.set(xlim=[0,100]) # Zet x-as van 0 tm 100
-ax2.invert_yaxis()
-ax2.set_xlabel('Percentage')
-ax2.set_title('CPU Usage')
-
-plt.savefig(os.path.join(os.path.dirname(__file__),'cpu.png')) # Sla processorgebruik op.
+cpu.plotPNG('cpu.png')
+memory.plotPNG('memory.png')
 
 print("<html>\n")
 print("<header>\n")
