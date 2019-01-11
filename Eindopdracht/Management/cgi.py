@@ -44,7 +44,7 @@ for line in fetch:
     mempercent.append(line[3]) # Voeg percentage geheugengebruik toe aan mempercent
     cpupercent.append(line[2]) # Voeg percentage processorgebruik toe aan cpupercent
     diskpercent.append(line[6]) # Voeg percentage hardeschijf toe aan diskpercent
-    htmlList.append(line[0],line[1],line[2],line[3],line[4],line[5])
+    htmlList.append((line[0],line[1],line[2],line[3],line[4],line[5]))
 
 cpu = HorizontalBar('CPU Usage','Percentage',minions,cpupercent,'red')
 memory = HorizontalBar('Memory Usage','Percentage',minions,mempercent,'red')
