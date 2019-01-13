@@ -6,6 +6,7 @@ import sqlite3
 import configparser
 import os
 import logging
+import time
 from cgiclasses import HorizontalBar
 
 print("Content-type: text/html\n")
@@ -79,7 +80,7 @@ for minion in htmlList:
     else: # Anders groen
         mcolor='#00FF00' # Groen
     print("<tr>\n")
-    print("<td align ='center'>"+str(minion[1])+"</td><td bgcolor='"+ccolor+"' align ='center'>"+str(minion[2])+"</td><td bgcolor='"+mcolor+"' align ='center'>"+str(minion[3])+"</td><td align ='center'>"+str(minion[4])+"GB</td><td align ='center'>"+str(minion[5])+"GB</td><td align ='center'>"+str(minion[0])+"</td>\n")
+    print("<td align ='center'>"+str(minion[1])+"</td><td bgcolor='"+ccolor+"' align ='center'>"+str(minion[2])+"</td><td bgcolor='"+mcolor+"' align ='center'>"+str(minion[3])+"</td><td align ='center'>"+str(minion[4])+"GB</td><td align ='center'>"+str(minion[5])+"GB</td><td align ='center'>"+str(time.ctime(minion[0]))+"</td>\n")
     print("</tr>\n")
 print("</table>\n")
 print("</body>\n")
