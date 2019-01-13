@@ -70,11 +70,11 @@ print("<tr>\n")
 print("<td align ='center'>Minion</td><td align ='center'>CPU usage</td><td align ='center'>Memory Usage</td><td align ='center'>Diskspace Total</td><td align ='center'>Diskspace In Use</td><td align ='center'>Time Stamp</td>\n")
 print("</tr>\n")
 for minion in htmlList:
-    if minion[2] > 89: # Is CPU percentage over de 89? Dan wordt de kleur rood
+    if int(minion[2]) > 89: # Is CPU percentage over de 89? Dan wordt de kleur rood
         ccolor='#FF0000' # Rood
     else: # Anders groen
         ccolor='#00FF00' # Groen
-    if minion[3] > 89: # Is Memory percentage over de 89? Dan wordt de kleur rood
+    if int(minion[3]) > 89: # Is Memory percentage over de 89? Dan wordt de kleur rood
         mcolor='#FF0000' # Rood
     else: # Anders groen
         mcolor='#00FF00' # Groen
