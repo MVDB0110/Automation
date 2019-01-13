@@ -68,7 +68,7 @@ print("<img src='disk.png'>\n")
 print("</div>\n")
 print("<table align='center' border='1'>\n")
 print("<tr>\n")
-print("<td align ='center'>Minion</td><td align ='center'>CPU usage</td><td align ='center'>Memory Usage</td><td align ='center'>Diskspace Total</td><td align ='center'>Diskspace In Use</td><td align ='center'>Date</td>\n")
+print("<td align ='center'>Minion</td><td align ='center'>CPU usage</td><td align ='center'>Memory Usage</td><td align ='center'>Diskspace Total</td><td align ='center'>Diskspace In Use</td><td align ='center'>Date & Time</td>\n")
 print("</tr>\n")
 for minion in htmlList:
     if int(minion[2]) > 89: # Is CPU percentage over de 89? Dan wordt de kleur rood
