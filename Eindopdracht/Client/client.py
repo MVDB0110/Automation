@@ -55,7 +55,7 @@ while True:
         output = output.splitlines() # output bestaat uit 5 regels waarvan 2 bruikbaar
         usage = [time.time(),socket.gethostname(),output[1],output[4],psutil.disk_usage(".").total,psutil.disk_usage(".").used,psutil.disk_usage(".").percent] # list maken van verschillende informatie
         try:
-            s.send(json.dumps(output).encode('ascii'))  # Maak een Json dump en codeer deze in ascii
+            s.send(json.dumps(usage).encode('ascii'))  # Maak een Json dump en codeer deze in ascii
         except: # Als json niet gedumpt kan worden is er een send failed. Dan verbreekt de server de verbinding.
             print("> Send failed")
         time.sleep(10)  # Wacht tien seconden
